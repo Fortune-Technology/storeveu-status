@@ -1,0 +1,9 @@
+[
+  { "name": "API",                "url": "https://api.storeveu.com/health" },
+  { "name": "Database",           "url": "https://api.storeveu.com/health/db" },
+  { "name": "Back-office Portal", "url": "https://dashboard.storeveu.com" },
+  { "name": "Admin Panel",        "url": "https://admin.storeveu.com" },
+  { "name": "Online Store",       "url": "https://shop.storeveu.com" },
+  { "name": "Store API",          "url": "https://shop-api.storeveu.com/health" },
+  { "name": "Marketing Site",     "url": "https://storeveu.com" }
+]

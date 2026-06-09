@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Storeveu Status</title>
+    <meta name="description" content="Live status and uptime for the Storeveu platform." />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="head">
+        <div class="brand">Storeveu<span>Status</span></div>
+        <div id="overall" class="overall overall--loading">Checking status…</div>
+      </header>
+
+      <section id="services" class="services" aria-live="polite"></section>
+
+      <footer class="foot">
+        <p id="updated" class="updated">Loading…</p>
+        <p class="note">
+          Checks run every ~10 minutes from GitHub — independent of Storeveu's
+          own servers, so this page stays up even during an outage.
+        </p>
+      </footer>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

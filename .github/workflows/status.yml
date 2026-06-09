@@ -1,0 +1,64 @@
+name: Status check & deploy
+
+# Polls every service, records uptime history, and publishes the status page.
+# Runs entirely on GitHub's infrastructure (Actions + Pages) using the built-in
+# GITHUB_TOKEN — NO Personal Access Token required.
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'   # every ~10 min (GitHub may delay under load)
+  workflow_dispatch:          # manual "Run workflow" button
+  push:
+    branches: [main]          # redeploy when you edit the config or page
+
+permissions:
+  contents: write   # commit the updated data/uptime.json (history)
+  pages: write      # deploy to GitHub Pages
+  id-token: write   # Pages deployment OIDC
+
+# Never run two checks at once; never cancel an in-flight deploy.
+concurrency:
+  group: storeveu-status
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run health checks
+        run: node scripts/check.mjs
+
+      - name: Commit updated history
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/uptime.json
+          if git diff --cached --quiet; then
+            echo "No history changes to commit"
+          else
+            git commit -m "chore: update status history"
+            git push origin HEAD:main
+          fi
+
+      # Auto-enables Pages in "GitHub Actions" mode on first run (needs the
+      # pages:write permission above). If your org blocks that, just set
+      # Settings -> Pages -> Source: GitHub Actions once, manually.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

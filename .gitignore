@@ -1,0 +1,3 @@
+node_modules/
+# Generated each run by scripts/check.mjs and uploaded to Pages — not committed.
+public/uptime.json
