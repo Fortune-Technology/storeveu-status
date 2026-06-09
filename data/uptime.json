@@ -1,5 +1,126 @@
 {
-  "updatedAt": null,
-  "order": ["API", "Database", "Back-office Portal", "Admin Panel", "Online Store", "Store API", "Marketing Site"],
-  "services": {}
+  "updatedAt": "2026-06-09T06:08:42.136Z",
+  "order": [
+    "API",
+    "Database",
+    "Back-office Portal",
+    "Admin Panel",
+    "Online Store",
+    "Store API",
+    "Marketing Site"
+  ],
+  "services": {
+    "API": {
+      "name": "API",
+      "url": "https://api.storeveu.com/health",
+      "current": {
+        "up": true,
+        "status": 200,
+        "responseMs": 198,
+        "checkedAt": "2026-06-09T06:08:42.136Z"
+      },
+      "daily": {
+        "2026-06-09": {
+          "checks": 1,
+          "up": 1
+        }
+      }
+    },
+    "Database": {
+      "name": "Database",
+      "url": "https://api.storeveu.com/health/db",
+      "current": {
+        "up": false,
+        "status": 404,
+        "responseMs": 140,
+        "checkedAt": "2026-06-09T06:08:42.136Z"
+      },
+      "daily": {
+        "2026-06-09": {
+          "checks": 1,
+          "up": 0
+        }
+      }
+    },
+    "Back-office Portal": {
+      "name": "Back-office Portal",
+      "url": "https://dashboard.storeveu.com",
+      "current": {
+        "up": true,
+        "status": 200,
+        "responseMs": 200,
+        "checkedAt": "2026-06-09T06:08:42.136Z"
+      },
+      "daily": {
+        "2026-06-09": {
+          "checks": 1,
+          "up": 1
+        }
+      }
+    },
+    "Admin Panel": {
+      "name": "Admin Panel",
+      "url": "https://admin.storeveu.com",
+      "current": {
+        "up": true,
+        "status": 200,
+        "responseMs": 193,
+        "checkedAt": "2026-06-09T06:08:42.136Z"
+      },
+      "daily": {
+        "2026-06-09": {
+          "checks": 1,
+          "up": 1
+        }
+      }
+    },
+    "Online Store": {
+      "name": "Online Store",
+      "url": "https://shop.storeveu.com",
+      "current": {
+        "up": true,
+        "status": 200,
+        "responseMs": 137,
+        "checkedAt": "2026-06-09T06:08:42.136Z"
+      },
+      "daily": {
+        "2026-06-09": {
+          "checks": 1,
+          "up": 1
+        }
+      }
+    },
+    "Store API": {
+      "name": "Store API",
+      "url": "https://shop-api.storeveu.com/health",
+      "current": {
+        "up": true,
+        "status": 200,
+        "responseMs": 153,
+        "checkedAt": "2026-06-09T06:08:42.136Z"
+      },
+      "daily": {
+        "2026-06-09": {
+          "checks": 1,
+          "up": 1
+        }
+      }
+    },
+    "Marketing Site": {
+      "name": "Marketing Site",
+      "url": "https://storeveu.com",
+      "current": {
+        "up": true,
+        "status": 200,
+        "responseMs": 147,
+        "checkedAt": "2026-06-09T06:08:42.136Z"
+      },
+      "daily": {
+        "2026-06-09": {
+          "checks": 1,
+          "up": 1
+        }
+      }
+    }
+  }
 }
