@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Storeveu Status</title>
-    <meta name="description" content="Live status and uptime for the Storeveu platform." />
+    <meta name="description" content="Live status, response times, and 90-day uptime history for the Storeveu platform." />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
@@ -14,7 +14,22 @@
         <div id="overall" class="overall overall--loading">Checking status…</div>
       </header>
 
+      <!-- Active incidents (only rendered when something is down) -->
+      <section id="ongoing" class="ongoing" aria-live="polite"></section>
+
+      <div class="section-head">
+        <h2 class="section-title">Current status &amp; 90-day uptime</h2>
+        <div class="legend">
+          <span><i class="sw sw--ok"></i>Operational</span>
+          <span><i class="sw sw--warn"></i>Partial</span>
+          <span><i class="sw sw--down"></i>Down</span>
+          <span><i class="sw sw--nd"></i>No data</span>
+        </div>
+      </div>
       <section id="services" class="services" aria-live="polite"></section>
+
+      <h2 class="section-title">Past incidents</h2>
+      <section id="past-incidents" class="incidents"></section>
 
       <footer class="foot">
         <p id="updated" class="updated">Loading…</p>

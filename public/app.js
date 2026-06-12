@@ -1,5 +1,7 @@
-// Reads uptime.json (produced by scripts/check.mjs) and renders the page.
-// Auto-refreshes every 60s. No dependencies.
+// Reads uptime.json (produced by scripts/check.mjs) and renders the page:
+// overall banner, active incidents, per-service 90-day uptime bars + uptime %
+// + response-time sparkline, and a Past Incidents log. Auto-refreshes every 60s.
+// Defensive against older data files that lack `samples`/`incidents`.
 
 const DATA_URL = './uptime.json';
 
@@ -46,6 +48,51 @@ function relTime(isoStr) {
   return `${Math.floor(s / 86_400)} d ago`;
 }
 
+function fmtDateTime(isoStr) {
+  if (!isoStr) return '—';
+  return new Date(isoStr).toLocaleString(undefined, {
+    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+  });
+}
+
+function fmtDur(min) {
+  if (min == null) return '';
+  if (min < 60) return `${min} min`;
+  if (min < 1440) return `${Math.floor(min / 60)}h ${min % 60}m`;
+  return `${Math.floor(min / 1440)}d ${Math.floor((min % 1440) / 60)}h`;
+}
+
+function msStats(samples) {
+  const ms = (samples || []).map((s) => s.ms).filter((v) => typeof v === 'number');
+  if (!ms.length) return null;
+  return {
+    last: ms[ms.length - 1],
+    avg: Math.round(ms.reduce((a, b) => a + b, 0) / ms.length),
+    peak: Math.max(...ms),
+  };
+}
+
+// Inline SVG sparkline of response time over the recent sample window.
+function responseChart(samples) {
+  const pts = (samples || []).filter((s) => s && typeof s.ms === 'number');
+  if (pts.length < 2) return '<div class="chart-empty">Collecting response-time data…</div>';
+  const W = 600;
+  const H = 56;
+  const PAD = 3;
+  const maxMs = Math.max(...pts.map((p) => p.ms), 50) * 1.2; // 20% headroom
+  const n = pts.length;
+  const X = (i) => PAD + (i / (n - 1)) * (W - 2 * PAD);
+  const Y = (v) => PAD + (1 - v / maxMs) * (H - 2 * PAD);
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${X(i).toFixed(1)} ${Y(p.ms).toFixed(1)}`).join(' ');
+  const area = `M${X(0).toFixed(1)} ${H - PAD} ${pts
+    .map((p, i) => `L${X(i).toFixed(1)} ${Y(p.ms).toFixed(1)}`)
+    .join(' ')} L${X(n - 1).toFixed(1)} ${H - PAD} Z`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Response time, last ${n} checks">
+    <path class="chart-area" d="${area}" />
+    <path class="chart-line" d="${line}" vector-effect="non-scaling-stroke" />
+  </svg>`;
+}
+
 function el(tag, cls, text) {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -55,13 +102,18 @@ function el(tag, cls, text) {
 
 function renderService(s) {
   const card = el('article', 'svc');
-
-  const top = el('div', 'svc-top');
   const up = !!(s.current && s.current.up);
-  const pillCls = s.current ? (up ? 'pill--ok' : 'pill--down') : 'pill--nd';
-  const pillTxt = s.current ? (up ? 'Operational' : 'Down') : 'No data';
-  top.append(el('div', 'svc-name', s.name), el('span', `pill ${pillCls}`, pillTxt));
+  const stateCls = s.current ? (up ? 'ok' : 'down') : 'nd';
+  const u90 = uptimePct(s.daily, 90);
 
+  // Header: dot + name + status pill
+  const head = el('div', 'svc-head');
+  const left = el('div', 'svc-head-left');
+  left.append(el('span', `dot dot--${stateCls}`), el('span', 'svc-name', s.name));
+  const pill = el('span', `pill pill--${stateCls}`, s.current ? (up ? 'Operational' : 'Down') : 'No data');
+  head.append(left, pill);
+
+  // 90-day uptime bars
   const bars = el('div', 'bars');
   for (const d of lastDays(90)) {
     const b = el('span', `bar bar--${dayState(s.daily, d)}`);
@@ -70,14 +122,30 @@ function renderService(s) {
     bars.append(b);
   }
 
-  const meta = el('div', 'svc-meta');
-  const ms = s.current && s.current.responseMs != null ? `${s.current.responseMs} ms` : '—';
-  meta.innerHTML =
-    `<span>7-day<b>${fmtPct(uptimePct(s.daily, 7))}</b></span>` +
-    `<span>90-day<b>${fmtPct(uptimePct(s.daily, 90))}</b></span>` +
-    `<span>${up ? 'Response' : 'Last'}<b>${ms}</b></span>`;
+  // Axis labels under the bars (90 days ago · uptime % · Today)
+  const axis = el('div', 'bars-axis');
+  axis.append(
+    el('span', null, '90 days ago'),
+    el('span', 'bars-axis-pct', `${fmtPct(u90)} uptime`),
+    el('span', null, 'Today'),
+  );
 
-  card.append(top, bars, meta);
+  // Response-time sparkline + stats
+  const chartWrap = el('div', 'chart-wrap');
+  chartWrap.innerHTML = responseChart(s.samples);
+  const stats = msStats(s.samples);
+  const meta = el('div', 'svc-meta');
+  if (stats) {
+    meta.innerHTML =
+      `<span>Response <b>${up && s.current ? `${s.current.responseMs} ms` : `${stats.last} ms`}</b></span>` +
+      `<span>Avg <b>${stats.avg} ms</b></span>` +
+      `<span>Peak <b>${stats.peak} ms</b></span>` +
+      `<span>7-day <b>${fmtPct(uptimePct(s.daily, 7))}</b></span>`;
+  } else {
+    meta.innerHTML = `<span>7-day <b>${fmtPct(uptimePct(s.daily, 7))}</b></span>`;
+  }
+
+  card.append(head, bars, axis, chartWrap, meta);
   return card;
 }
 
@@ -85,7 +153,6 @@ function renderOverall(data) {
   const node = document.getElementById('overall');
   const names = data.order || Object.keys(data.services || {});
   const states = names.map((n) => data.services[n] && data.services[n].current).filter(Boolean);
-
   node.className = 'overall';
   if (!states.length) {
     node.classList.add('overall--loading');
@@ -95,13 +162,46 @@ function renderOverall(data) {
   const down = states.filter((c) => !c.up).length;
   if (down === 0) {
     node.classList.add('overall--ok');
-    node.textContent = 'All systems operational';
+    node.textContent = 'All Systems Operational';
   } else if (down === states.length) {
     node.classList.add('overall--down');
-    node.textContent = 'Major outage';
+    node.textContent = 'Major Outage';
   } else {
     node.classList.add('overall--warn');
-    node.textContent = `Partial outage — ${down} service${down > 1 ? 's' : ''} affected`;
+    node.textContent = `Partial Outage — ${down} service${down > 1 ? 's' : ''} affected`;
+  }
+}
+
+function renderIncidents(data) {
+  const incidents = data.incidents || [];
+  const ongoing = incidents.filter((i) => !i.endedAt);
+  const past = incidents.filter((i) => i.endedAt);
+
+  const oc = document.getElementById('ongoing');
+  oc.innerHTML = '';
+  for (const i of ongoing) {
+    const card = el('div', 'inc inc--ongoing');
+    const title = el('div', 'inc-title');
+    title.append(el('span', 'inc-tag inc-tag--investigating', 'Investigating'), el('span', 'inc-name', i.title || `${i.service} down`));
+    card.append(title, el('div', 'inc-when', `Detected ${fmtDateTime(i.startedAt)} · ${relTime(i.startedAt)}`));
+    oc.append(card);
+  }
+
+  const pc = document.getElementById('past-incidents');
+  pc.innerHTML = '';
+  if (!past.length) {
+    pc.append(el('p', 'empty', 'No incidents in the past 90 days.'));
+    return;
+  }
+  for (const i of past.slice(0, 25)) {
+    const card = el('div', 'inc inc--past');
+    const title = el('div', 'inc-title');
+    title.append(el('span', 'inc-tag inc-tag--resolved', 'Resolved'), el('span', 'inc-name', i.title || `${i.service} down`));
+    card.append(
+      title,
+      el('div', 'inc-when', `${fmtDateTime(i.startedAt)} · down ${fmtDur(i.durationMin)} · resolved ${relTime(i.endedAt)}`),
+    );
+    pc.append(card);
   }
 }
 
@@ -111,6 +211,7 @@ async function load() {
     const data = await res.json();
 
     renderOverall(data);
+    renderIncidents(data);
 
     const wrap = document.getElementById('services');
     wrap.innerHTML = '';
