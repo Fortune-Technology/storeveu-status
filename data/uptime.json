@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-09T06:08:42.136Z",
+  "updatedAt": "2026-06-12T17:51:24.796Z",
   "order": [
     "API",
     "Database",
@@ -16,13 +16,25 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 198,
-        "checkedAt": "2026-06-09T06:08:42.136Z"
+        "responseMs": 242,
+        "checkedAt": "2026-06-12T17:51:24.796Z"
       },
       "daily": {
         "2026-06-09": {
-          "checks": 1,
-          "up": 1
+          "checks": 10,
+          "up": 10
+        },
+        "2026-06-10": {
+          "checks": 9,
+          "up": 9
+        },
+        "2026-06-11": {
+          "checks": 7,
+          "up": 7
+        },
+        "2026-06-12": {
+          "checks": 6,
+          "up": 6
         }
       }
     },
@@ -30,15 +42,27 @@
       "name": "Database",
       "url": "https://api.storeveu.com/health/db",
       "current": {
-        "up": false,
-        "status": 404,
-        "responseMs": 140,
-        "checkedAt": "2026-06-09T06:08:42.136Z"
+        "up": true,
+        "status": 200,
+        "responseMs": 169,
+        "checkedAt": "2026-06-12T17:51:24.796Z"
       },
       "daily": {
         "2026-06-09": {
-          "checks": 1,
-          "up": 0
+          "checks": 10,
+          "up": 5
+        },
+        "2026-06-10": {
+          "checks": 9,
+          "up": 9
+        },
+        "2026-06-11": {
+          "checks": 7,
+          "up": 7
+        },
+        "2026-06-12": {
+          "checks": 6,
+          "up": 6
         }
       }
     },
@@ -48,13 +72,25 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 200,
-        "checkedAt": "2026-06-09T06:08:42.136Z"
+        "responseMs": 276,
+        "checkedAt": "2026-06-12T17:51:24.796Z"
       },
       "daily": {
         "2026-06-09": {
-          "checks": 1,
-          "up": 1
+          "checks": 10,
+          "up": 10
+        },
+        "2026-06-10": {
+          "checks": 9,
+          "up": 9
+        },
+        "2026-06-11": {
+          "checks": 7,
+          "up": 7
+        },
+        "2026-06-12": {
+          "checks": 6,
+          "up": 6
         }
       }
     },
@@ -64,13 +100,25 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 193,
-        "checkedAt": "2026-06-09T06:08:42.136Z"
+        "responseMs": 333,
+        "checkedAt": "2026-06-12T17:51:24.796Z"
       },
       "daily": {
         "2026-06-09": {
-          "checks": 1,
-          "up": 1
+          "checks": 10,
+          "up": 10
+        },
+        "2026-06-10": {
+          "checks": 9,
+          "up": 9
+        },
+        "2026-06-11": {
+          "checks": 7,
+          "up": 7
+        },
+        "2026-06-12": {
+          "checks": 6,
+          "up": 6
         }
       }
     },
@@ -80,13 +128,25 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 137,
-        "checkedAt": "2026-06-09T06:08:42.136Z"
+        "responseMs": 185,
+        "checkedAt": "2026-06-12T17:51:24.796Z"
       },
       "daily": {
         "2026-06-09": {
-          "checks": 1,
-          "up": 1
+          "checks": 10,
+          "up": 10
+        },
+        "2026-06-10": {
+          "checks": 9,
+          "up": 9
+        },
+        "2026-06-11": {
+          "checks": 7,
+          "up": 7
+        },
+        "2026-06-12": {
+          "checks": 6,
+          "up": 6
         }
       }
     },
@@ -96,13 +156,25 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 153,
-        "checkedAt": "2026-06-09T06:08:42.136Z"
+        "responseMs": 165,
+        "checkedAt": "2026-06-12T17:51:24.796Z"
       },
       "daily": {
         "2026-06-09": {
-          "checks": 1,
-          "up": 1
+          "checks": 10,
+          "up": 10
+        },
+        "2026-06-10": {
+          "checks": 9,
+          "up": 9
+        },
+        "2026-06-11": {
+          "checks": 7,
+          "up": 7
+        },
+        "2026-06-12": {
+          "checks": 6,
+          "up": 6
         }
       }
     },
@@ -112,13 +184,25 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 147,
-        "checkedAt": "2026-06-09T06:08:42.136Z"
+        "responseMs": 86,
+        "checkedAt": "2026-06-12T17:51:24.796Z"
       },
       "daily": {
         "2026-06-09": {
-          "checks": 1,
-          "up": 1
+          "checks": 10,
+          "up": 10
+        },
+        "2026-06-10": {
+          "checks": 9,
+          "up": 9
+        },
+        "2026-06-11": {
+          "checks": 7,
+          "up": 7
+        },
+        "2026-06-12": {
+          "checks": 6,
+          "up": 6
         }
       }
     }
