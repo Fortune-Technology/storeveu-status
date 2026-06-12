@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-12T17:51:24.796Z",
+  "updatedAt": "2026-06-12T18:20:25.321Z",
   "order": [
     "API",
     "Database",
@@ -16,8 +16,8 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 242,
-        "checkedAt": "2026-06-12T17:51:24.796Z"
+        "responseMs": 210,
+        "checkedAt": "2026-06-12T18:20:25.321Z"
       },
       "daily": {
         "2026-06-09": {
@@ -33,10 +33,17 @@
           "up": 7
         },
         "2026-06-12": {
-          "checks": 6,
-          "up": 6
+          "checks": 7,
+          "up": 7
         }
-      }
+      },
+      "samples": [
+        {
+          "t": "2026-06-12T18:20:25.321Z",
+          "up": true,
+          "ms": 210
+        }
+      ]
     },
     "Database": {
       "name": "Database",
@@ -44,8 +51,8 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 169,
-        "checkedAt": "2026-06-12T17:51:24.796Z"
+        "responseMs": 165,
+        "checkedAt": "2026-06-12T18:20:25.321Z"
       },
       "daily": {
         "2026-06-09": {
@@ -61,10 +68,17 @@
           "up": 7
         },
         "2026-06-12": {
-          "checks": 6,
-          "up": 6
+          "checks": 7,
+          "up": 7
         }
-      }
+      },
+      "samples": [
+        {
+          "t": "2026-06-12T18:20:25.321Z",
+          "up": true,
+          "ms": 165
+        }
+      ]
     },
     "Back-office Portal": {
       "name": "Back-office Portal",
@@ -72,8 +86,8 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 276,
-        "checkedAt": "2026-06-12T17:51:24.796Z"
+        "responseMs": 138,
+        "checkedAt": "2026-06-12T18:20:25.321Z"
       },
       "daily": {
         "2026-06-09": {
@@ -89,10 +103,17 @@
           "up": 7
         },
         "2026-06-12": {
-          "checks": 6,
-          "up": 6
+          "checks": 7,
+          "up": 7
         }
-      }
+      },
+      "samples": [
+        {
+          "t": "2026-06-12T18:20:25.321Z",
+          "up": true,
+          "ms": 138
+        }
+      ]
     },
     "Admin Panel": {
       "name": "Admin Panel",
@@ -100,8 +121,8 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 333,
-        "checkedAt": "2026-06-12T17:51:24.796Z"
+        "responseMs": 72,
+        "checkedAt": "2026-06-12T18:20:25.321Z"
       },
       "daily": {
         "2026-06-09": {
@@ -117,10 +138,17 @@
           "up": 7
         },
         "2026-06-12": {
-          "checks": 6,
-          "up": 6
+          "checks": 7,
+          "up": 7
         }
-      }
+      },
+      "samples": [
+        {
+          "t": "2026-06-12T18:20:25.321Z",
+          "up": true,
+          "ms": 72
+        }
+      ]
     },
     "Online Store": {
       "name": "Online Store",
@@ -128,8 +156,8 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 185,
-        "checkedAt": "2026-06-12T17:51:24.796Z"
+        "responseMs": 157,
+        "checkedAt": "2026-06-12T18:20:25.321Z"
       },
       "daily": {
         "2026-06-09": {
@@ -145,10 +173,17 @@
           "up": 7
         },
         "2026-06-12": {
-          "checks": 6,
-          "up": 6
+          "checks": 7,
+          "up": 7
         }
-      }
+      },
+      "samples": [
+        {
+          "t": "2026-06-12T18:20:25.321Z",
+          "up": true,
+          "ms": 157
+        }
+      ]
     },
     "Store API": {
       "name": "Store API",
@@ -156,8 +191,8 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 165,
-        "checkedAt": "2026-06-12T17:51:24.796Z"
+        "responseMs": 130,
+        "checkedAt": "2026-06-12T18:20:25.321Z"
       },
       "daily": {
         "2026-06-09": {
@@ -173,10 +208,17 @@
           "up": 7
         },
         "2026-06-12": {
-          "checks": 6,
-          "up": 6
+          "checks": 7,
+          "up": 7
         }
-      }
+      },
+      "samples": [
+        {
+          "t": "2026-06-12T18:20:25.321Z",
+          "up": true,
+          "ms": 130
+        }
+      ]
     },
     "Marketing Site": {
       "name": "Marketing Site",
@@ -184,8 +226,8 @@
       "current": {
         "up": true,
         "status": 200,
-        "responseMs": 86,
-        "checkedAt": "2026-06-12T17:51:24.796Z"
+        "responseMs": 126,
+        "checkedAt": "2026-06-12T18:20:25.321Z"
       },
       "daily": {
         "2026-06-09": {
@@ -201,10 +243,18 @@
           "up": 7
         },
         "2026-06-12": {
-          "checks": 6,
-          "up": 6
+          "checks": 7,
+          "up": 7
         }
-      }
+      },
+      "samples": [
+        {
+          "t": "2026-06-12T18:20:25.321Z",
+          "up": true,
+          "ms": 126
+        }
+      ]
     }
-  }
+  },
+  "incidents": []
 }
