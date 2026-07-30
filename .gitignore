@@ -1,3 +1,7 @@
 node_modules/
 # Generated each run by scripts/check.mjs and uploaded to Pages — not committed.
 public/uptime.json
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
